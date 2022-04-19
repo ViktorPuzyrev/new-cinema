@@ -1,5 +1,5 @@
 <template>
-  <div><p>Мои билеты</p></div>
+  <p>Мои билеты</p>
 </template>
 
 <script setup lang="ts"></script>
