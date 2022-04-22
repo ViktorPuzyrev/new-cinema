@@ -1,9 +1,63 @@
 import { createStore } from "vuex";
+import * as API from "@/services/API";
+import * as TYPE from "@/store/types";
 
 export default createStore({
-  state: {},
+  state: {
+    language: "ru",
+    NowPlayingMovies: {} as TYPE.MovieList,
+    UpcomingMovies: {} as TYPE.MovieList,
+    MovieDetals: {} as TYPE.MovieDetals,
+    MovieCredits: {} as TYPE.MovieCredits,
+    MovieImages: {} as TYPE.MovieImages,
+    MovieVideos: {} as TYPE.MovieVideos,
+  },
   getters: {},
-  mutations: {},
-  actions: {},
+  mutations: {
+    updateUpcomingMovies(state, data: TYPE.MovieList) {
+      state.UpcomingMovies = data;
+    },
+    updateNowPlayingMovies(state, data: TYPE.MovieList) {
+      state.NowPlayingMovies = data;
+    },
+    updateMovieDetals(state, data: TYPE.MovieList) {
+      state.MovieDetals = data;
+    },
+    updateMovieCredits(state, data: TYPE.MovieDetals) {
+      state.MovieCredits = data;
+    },
+    updateMovieImages(state, data: TYPE.MovieImages) {
+      state.MovieImages = data;
+    },
+    updateMovieVideos(state, data: TYPE.MovieVideos) {
+      state.MovieVideos = data;
+    },
+  },
+  actions: {
+    async initUpcomingMovies({ state, commit }) {
+      const data = await API.getUpcomingMovies(state.language);
+      commit("updateUpcomingMovies", data);
+    },
+    async initNowPlayingMovies({ state, commit }) {
+      const data = await API.getNowPlayingMovies(state.language);
+      commit("updateNowPlayingMovies", data);
+    },
+    async initMovieDetals({ state, commit }, id: number) {
+      const data = await API.getMovieDetals(id, state.language);
+      commit("updateMovieDetals", data);
+    },
+    async initMovieCredits({ state, commit }, id: number) {
+      const data = await API.getMovieCredits(id, state.language);
+      commit("updateMovieCredits", data);
+    },
+    async initMovieImages({ state, commit }, id: number) {
+      const data = await API.getMovieImages(id, state.language);
+      commit("updateMovieImages", data);
+    },
+    async initMovieVideos({ state, commit }, id: number) {
+      const data = await API.getMovieVideos(id, state.language);
+      commit("updateMovieVideos", data);
+    },
+  },
   modules: {},
 });
