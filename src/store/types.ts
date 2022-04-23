@@ -4,7 +4,7 @@ interface Response {
   status_code?: number;
 }
 
-type Movie = {
+export type Movie = {
   adult?: boolean;
   backdrop_path?: string | null;
   belongs_to_collection?: null | object;

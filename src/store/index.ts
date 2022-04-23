@@ -4,6 +4,7 @@ import * as TYPE from "@/store/types";
 
 export default createStore({
   state: {
+    breakpoint: "",
     language: "ru",
     NowPlayingMovies: {} as TYPE.MovieList,
     UpcomingMovies: {} as TYPE.MovieList,
@@ -12,7 +13,26 @@ export default createStore({
     MovieImages: {} as TYPE.MovieImages,
     MovieVideos: {} as TYPE.MovieVideos,
   },
-  getters: {},
+  getters: {
+    upcomingMoviesList(state) {
+      const data: TYPE.Movie[] = JSON.parse(
+        JSON.stringify(state.UpcomingMovies.results)
+      );
+      data.forEach((item) => {
+        item.backdrop_path = API.getImageUrl(
+          "backdrop",
+          state.breakpoint,
+          item.backdrop_path
+        );
+        item.poster_path = API.getImageUrl(
+          "poster",
+          state.breakpoint,
+          item.poster_path
+        );
+      });
+      return data;
+    },
+  },
   mutations: {
     updateUpcomingMovies(state, data: TYPE.MovieList) {
       state.UpcomingMovies = data;
@@ -31,6 +51,9 @@ export default createStore({
     },
     updateMovieVideos(state, data: TYPE.MovieVideos) {
       state.MovieVideos = data;
+    },
+    updateBreakpoint(state, data: string) {
+      state.breakpoint = data;
     },
   },
   actions: {

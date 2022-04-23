@@ -45,3 +45,35 @@ export const getMovieVideos = async (
   await fetch(
     `https://new-cinema-api.herokuapp.com/movie/${id}/videos/${lang}`
   ).then((respons) => respons.json());
+
+export function getImageUrl(
+  type: string,
+  breakpoint: string,
+  url_path: string | null | undefined
+) {
+  const base_url = "https://image.tmdb.org/t/p/";
+  if (type === "backdrop") {
+    switch (breakpoint) {
+      case "xs" || "sm":
+        return base_url + "w780" + url_path;
+      case "md":
+        return base_url + "w1280" + url_path;
+      case "lg" || "xl" || "xxl":
+        return base_url + "original" + url_path;
+      default:
+        break;
+    }
+  }
+  if (type === "poster") {
+    switch (breakpoint) {
+      case "xs" || "sm":
+        return base_url + "w154" + url_path;
+      case "md":
+        return base_url + "w185" + url_path;
+      case "lg" || "xl" || "xxl":
+        return base_url + "w342" + url_path;
+      default:
+        break;
+    }
+  }
+}
