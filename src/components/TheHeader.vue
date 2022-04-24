@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="primary">
+  <v-app-bar color="primary" absolute>
     <v-container class="d-flex">
       <v-app-bar-title class="my-auto" @click="$router.push('/')"
         >New Cinema
