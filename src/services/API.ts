@@ -49,8 +49,8 @@ export const getMovieVideos = async (
 export function getImageUrl(
   type: string,
   breakpoint: string,
-  url_path: string | null | undefined
-) {
+  url_path: string
+): string {
   const base_url = "https://image.tmdb.org/t/p/";
   if (type === "backdrop") {
     switch (breakpoint) {
@@ -76,4 +76,5 @@ export function getImageUrl(
         break;
     }
   }
+  return "error";
 }

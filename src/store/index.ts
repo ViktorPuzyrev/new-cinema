@@ -6,19 +6,18 @@ export default createStore({
   state: {
     breakpoint: "",
     language: "ru",
+    loading: true,
     NowPlayingMovies: {} as TYPE.MovieList,
     UpcomingMovies: {} as TYPE.MovieList,
-    MovieDetals: {} as TYPE.MovieDetals,
+    MovieDetals: {} as TYPE.Movie,
     MovieCredits: {} as TYPE.MovieCredits,
     MovieImages: {} as TYPE.MovieImages,
     MovieVideos: {} as TYPE.MovieVideos,
   },
   getters: {
     upcomingMoviesList(state) {
-      const data: TYPE.Movie[] = JSON.parse(
-        JSON.stringify(state.UpcomingMovies.results)
-      );
-      data.forEach((item) => {
+      const data = JSON.parse(JSON.stringify(state.UpcomingMovies.results));
+      data.forEach((item: TYPE.Movie) => {
         item.backdrop_path = API.getImageUrl(
           "backdrop",
           state.breakpoint,
@@ -34,16 +33,19 @@ export default createStore({
     },
   },
   mutations: {
+    updateLoading(state) {
+      state.loading = false;
+    },
     updateUpcomingMovies(state, data: TYPE.MovieList) {
       state.UpcomingMovies = data;
     },
     updateNowPlayingMovies(state, data: TYPE.MovieList) {
       state.NowPlayingMovies = data;
     },
-    updateMovieDetals(state, data: TYPE.MovieList) {
+    updateMovieDetals(state, data: TYPE.Movie) {
       state.MovieDetals = data;
     },
-    updateMovieCredits(state, data: TYPE.MovieDetals) {
+    updateMovieCredits(state, data: TYPE.MovieCredits) {
       state.MovieCredits = data;
     },
     updateMovieImages(state, data: TYPE.MovieImages) {
@@ -60,6 +62,7 @@ export default createStore({
     async initUpcomingMovies({ state, commit }) {
       const data = await API.getUpcomingMovies(state.language);
       commit("updateUpcomingMovies", data);
+      commit("updateLoading");
     },
     async initNowPlayingMovies({ state, commit }) {
       const data = await API.getNowPlayingMovies(state.language);
