@@ -4,45 +4,30 @@ import * as TYPE from "@/store/types";
 
 export default createStore({
   state: {
-    breakpoint: "",
-    language: "ru",
     loading: true,
-    NowPlayingMovies: {} as TYPE.MovieList,
-    UpcomingMovies: {} as TYPE.MovieList,
-    MovieDetals: {} as TYPE.Movie,
+    NowPlayingMovies: {} as TYPE.MoviesList,
+    UpcomingMovies: {} as TYPE.MoviesList,
+    MovieDetals: {} as TYPE.MovieDetails,
     MovieCredits: {} as TYPE.MovieCredits,
     MovieImages: {} as TYPE.MovieImages,
     MovieVideos: {} as TYPE.MovieVideos,
   },
   getters: {
     upcomingMoviesList(state) {
-      const data = JSON.parse(JSON.stringify(state.UpcomingMovies.results));
-      data.forEach((item: TYPE.Movie) => {
-        item.backdrop_path = API.getImageUrl(
-          "backdrop",
-          state.breakpoint,
-          item.backdrop_path
-        );
-        item.poster_path = API.getImageUrl(
-          "poster",
-          state.breakpoint,
-          item.poster_path
-        );
-      });
-      return data;
+      return state.UpcomingMovies.items;
     },
   },
   mutations: {
     updateLoading(state) {
       state.loading = false;
     },
-    updateUpcomingMovies(state, data: TYPE.MovieList) {
+    updateUpcomingMovies(state, data: TYPE.MoviesList) {
       state.UpcomingMovies = data;
     },
-    updateNowPlayingMovies(state, data: TYPE.MovieList) {
+    updateNowPlayingMovies(state, data: TYPE.MoviesList) {
       state.NowPlayingMovies = data;
     },
-    updateMovieDetals(state, data: TYPE.Movie) {
+    updateMovieDetals(state, data: TYPE.MovieDetails) {
       state.MovieDetals = data;
     },
     updateMovieCredits(state, data: TYPE.MovieCredits) {
@@ -54,34 +39,31 @@ export default createStore({
     updateMovieVideos(state, data: TYPE.MovieVideos) {
       state.MovieVideos = data;
     },
-    updateBreakpoint(state, data: string) {
-      state.breakpoint = data;
-    },
   },
   actions: {
-    async initUpcomingMovies({ state, commit }) {
-      const data = await API.getUpcomingMovies(state.language);
+    async initUpcomingMovies({ commit }) {
+      const data = await API.getUpcomingMovies();
       commit("updateUpcomingMovies", data);
       commit("updateLoading");
     },
-    async initNowPlayingMovies({ state, commit }) {
-      const data = await API.getNowPlayingMovies(state.language);
+    async initNowPlayingMovies({ commit }) {
+      const data = await API.getNowPlayingMovies();
       commit("updateNowPlayingMovies", data);
     },
-    async initMovieDetals({ state, commit }, id: number) {
-      const data = await API.getMovieDetals(id, state.language);
+    async initMovieDetals({ commit }, id: number) {
+      const data = await API.getMovieDetals(id);
       commit("updateMovieDetals", data);
     },
-    async initMovieCredits({ state, commit }, id: number) {
-      const data = await API.getMovieCredits(id, state.language);
+    async initMovieCredits({ commit }, id: number) {
+      const data = await API.getMovieCredits(id);
       commit("updateMovieCredits", data);
     },
-    async initMovieImages({ state, commit }, id: number) {
-      const data = await API.getMovieImages(id, state.language);
+    async initMovieImages({ commit }, id: number) {
+      const data = await API.getMovieImages(id);
       commit("updateMovieImages", data);
     },
-    async initMovieVideos({ state, commit }, id: number) {
-      const data = await API.getMovieVideos(id, state.language);
+    async initMovieVideos({ commit }, id: number) {
+      const data = await API.getMovieVideos(id);
       commit("updateMovieVideos", data);
     },
   },
