@@ -12,6 +12,7 @@
   "dependencies": {
     "@mdi/font": "6.6.96",
     "core-js": "^3.22.2",
+    "lodash": "^4.17.21",
     "roboto-fontface": "*",
     "vue": "^3.2.33",
     "vue-router": "^4.0.14",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
+    "@types/lodash": "^4.14.182",
     "@types/webfontloader": "^1.6.34",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
