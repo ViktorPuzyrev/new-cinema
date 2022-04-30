@@ -1,9 +1,9 @@
 export interface MoviesList {
   total: number;
-  items: Movies[];
+  items: Movie[];
 }
 
-export type Movies = {
+export type Movie = {
   kinopoiskId: number;
   nameRu: string;
   nameEn: string;

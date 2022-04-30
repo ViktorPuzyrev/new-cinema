@@ -16,6 +16,9 @@ export default createStore({
     upcomingMoviesList(state) {
       return state.UpcomingMovies.items;
     },
+    NowPlayingMoviesList(state) {
+      return state.NowPlayingMovies.items;
+    },
   },
   mutations: {
     updateLoading(state) {
