@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/cart",
     name: "cart",
     component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/CartView.vue"),
+      import(/* webpackChunkName: "cart" */ "@/views/CartView.vue"),
     meta: { title: "Мои билеты - New Cinema" },
   },
 ];

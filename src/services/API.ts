@@ -10,7 +10,7 @@ export const getNowPlayingMovies = async (): Promise<TYPE.MoviesList> =>
     (respons) => respons.json()
   );
 
-export const getMovieDetals = async (id: number): Promise<TYPE.MoviesList> =>
+export const getMovieDetals = async (id: number): Promise<TYPE.MovieDetails> =>
   await fetch(`https://new-cinema-api.herokuapp.com/movie/${id}/`).then(
     (respons) => respons.json()
   );

@@ -1,6 +1,6 @@
 <template>
-  <v-card class="pa-3">
-    <span>Скоро в прокате</span>
+  <v-card class="pa-3" color="secondary">
+    <span class="text-h5">Скоро в прокате</span>
     <div v-if="loading">
       <v-row>
         <v-col v-for="(item, i) of columns.columns" :key="i">
@@ -17,7 +17,7 @@
       </v-row>
     </div>
     <div v-else>
-      <v-carousel cycle height="100%" hide-delimiters show-arrows="hover">
+      <v-carousel height="100%" hide-delimiters show-arrows="hover">
         <template v-for="(movie, index) in UpcomingMovies">
           <v-carousel-item
             v-if="(index + 1) % columns.columns === 1 || columns.columns === 1"
@@ -32,7 +32,6 @@
                       <v-img
                         :height="columns.imgHeight"
                         :src="UpcomingMovies[+index + i].posterUrl"
-                        contain
                         eager
                       ></v-img
                     ></router-link>
@@ -50,31 +49,31 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "vuex";
-import { Movies } from "@/store/types";
+import { Movie } from "@/store/types";
 import { useDisplay } from "vuetify";
 
 const store = useStore();
 const loading = computed((): boolean => store.state.loading);
 const UpcomingMovies = computed(
-  (): Movies[] => store.getters.upcomingMoviesList
+  (): Movie[] => store.getters.upcomingMoviesList
 );
 const { name } = useDisplay();
 const columns = computed(() => {
   switch (name.value) {
     case "xs":
-      return { columns: 1, imgHeight: 500 };
+      return { columns: 1, imgHeight: 400 };
     case "sm":
-      return { columns: 2, imgHeight: 500 };
+      return { columns: 4, imgHeight: 250 };
     case "md":
-      return { columns: 2, imgHeight: 600 };
+      return { columns: 4, imgHeight: 250 };
     case "lg":
-      return { columns: 3, imgHeight: 520 };
+      return { columns: 6, imgHeight: 250 };
     case "xl":
-      return { columns: 4, imgHeight: 600 };
+      return { columns: 9, imgHeight: 250 };
     case "xxl":
-      return { columns: 6, imgHeight: 500 };
+      return { columns: 11, imgHeight: 250 };
     default:
-      return { columns: 1, imgHeight: 500 };
+      return { columns: 1, imgHeight: 250 };
   }
 });
 </script>
