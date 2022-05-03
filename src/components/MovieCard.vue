@@ -56,7 +56,9 @@ const genres = computed((): string => {
   return movie.genres.map((item) => item.genre).join(", ");
 });
 const description = computed(() => {
-  if (movie.description.length > 480) {
+  if (movie.description === null) {
+    return "Описание отсутствует.";
+  } else if (movie.description.length > 480) {
     return movie.description.substring(0, 480) + "...";
   } else {
     return movie.description;
