@@ -1,9 +1,16 @@
+import store from "@/store";
 import * as TYPE from "@/store/types";
 
-export const getUpcomingMovies = async (): Promise<TYPE.MoviesList> =>
-  await fetch(`https://new-cinema-api.herokuapp.com/upcoming`).then((respons) =>
-    respons.json()
-  );
+export const getUpcomingMovies = async (): Promise<TYPE.MoviesList> => {
+  try {
+    return await fetch(`https://new-cinema-api.herokuapp.com/upcoming`).then(
+      (respons) => respons.json()
+    );
+  } catch (error) {
+    store.commit("updateError");
+    throw new Error("");
+  }
+};
 
 export const getNowPlayingMovies = async (): Promise<TYPE.MoviesList> =>
   await fetch(`https://new-cinema-api.herokuapp.com/now-playing/`).then(
