@@ -1,14 +1,13 @@
 import store from "@/store";
 import * as TYPE from "@/store/types";
+import axios, { AxiosError } from "axios";
 
 export const getUpcomingMovies = async (): Promise<TYPE.MoviesList> => {
   try {
-    return await fetch(`https://new-cinema-api.herokuapp.com/upcoming`).then(
-      (respons) => respons.json()
-    );
+    return await axios.get("https://new-cinema-api.herokuapp.com/upcoming");
   } catch (error) {
-    store.commit("updateError");
-    throw new Error("");
+    store.commit("updateError", (error as AxiosError).response?.data);
+    throw error;
   }
 };
 

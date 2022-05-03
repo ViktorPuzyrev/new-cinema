@@ -1,7 +1,11 @@
 <template>
+  <v-alert v-if="store.state.error" type="error" class="mb-4"
+    >Ошибка API. {{ store.state.error }}</v-alert
+  >
   <TheSlider />
   <v-card class="mt-4 pa-3" color="primary">
     <span class="text-h5">Уже на экранах</span>
+    <LoadingMovieCard v-if="store.state.error" />
     <Suspense v-for="movie of movieList" :key="movie.kinopoiskId">
       <template #default>
         <MovieCard :kinopoiskId="movie.kinopoiskId" />

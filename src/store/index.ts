@@ -4,7 +4,7 @@ import * as TYPE from "@/store/types";
 
 export default createStore({
   state: {
-    error: false,
+    error: "",
     loading: true,
     NowPlayingMovies: {} as TYPE.MoviesList,
     UpcomingMovies: {} as TYPE.MoviesList,
@@ -22,8 +22,8 @@ export default createStore({
     },
   },
   mutations: {
-    updateError(state) {
-      state.error = true;
+    updateError(state, data: string) {
+      state.error = data;
     },
     updateLoading(state) {
       state.loading = false;
