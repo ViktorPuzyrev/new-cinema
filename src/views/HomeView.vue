@@ -11,9 +11,7 @@
         <MovieCard :kinopoiskId="movie.kinopoiskId" />
       </template>
       <template #fallback>
-        <div>
-          <LoadingMovieCard />
-        </div>
+        <LoadingMovieCard />
       </template>
     </Suspense>
     <div class="d-flex">
