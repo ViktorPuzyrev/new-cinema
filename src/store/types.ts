@@ -94,3 +94,9 @@ export interface MovieVideos {
     site: "KINOPOISK_WIDGET" | "UNKNOWN" | "YOUTUBE";
   }[];
 }
+
+export interface CartItem {
+  movieId: number;
+  session: string[];
+  seats: string[];
+}
