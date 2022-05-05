@@ -6,7 +6,7 @@
           <v-progress-circular
             class="ma-auto"
             indeterminate
-            color="primary"
+            color="grey"
             :size="70"
             :width="7"
           >

@@ -14,14 +14,14 @@
         <span><b>Описание:</b> {{ description }}</span
         ><br />
         <div class="d-none d-sm-flex">
-          <v-btn color="secondary">Подробнее</v-btn
-          ><v-btn color="primary" class="ml-2" @click="overlay = true"
+          <v-btn color="cyan">Подробнее</v-btn
+          ><v-btn color="amber" class="ml-2" @click="overlay = true"
             >Купить билет</v-btn
           >
         </div>
         <div class="d-sm-none d-block">
-          <v-btn block color="secondary" class="mt-4">Подробнее</v-btn
-          ><v-btn block color="primary" class="mt-4" @click="overlay = true"
+          <v-btn block color="cyan" class="mt-4">Подробнее</v-btn
+          ><v-btn block color="amber" class="mt-4" @click="overlay = true"
             >Купить билет</v-btn
           >
         </div>

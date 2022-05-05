@@ -1,6 +1,6 @@
 <template>
-  <v-card class="pa-3" color="secondary">
-    <span class="text-h5">Скоро в прокате</span>
+  <v-card class="pa-3" color="blue-grey">
+    <span class="text-h5 text-white">Скоро в прокате</span>
     <div v-if="loading">
       <v-row>
         <v-col v-for="(item, i) of columns.columns" :key="i">
@@ -8,7 +8,7 @@
             ><v-progress-circular
               class="ma-auto"
               indeterminate
-              color="primary"
+              color="blue-grey"
               :size="70"
               :width="7"
             >
@@ -33,6 +33,7 @@
                         :height="columns.imgHeight"
                         :src="UpcomingMovies[+index + i].posterUrl"
                         eager
+                        cover
                       ></v-img
                     ></router-link>
                   </v-col>
@@ -54,14 +55,18 @@ import { useDisplay } from "vuetify";
 
 const store = useStore();
 const loading = computed((): boolean => store.state.loading);
-const UpcomingMovies = computed(
-  (): Movie[] => store.getters.upcomingMoviesList
+const UpcomingMovies = computed((): Movie[] =>
+  store.getters.upcomingMoviesList.slice(
+    0,
+    store.getters.upcomingMoviesList.length -
+      (store.getters.upcomingMoviesList.length % columns.value.columns)
+  )
 );
 const { name } = useDisplay();
 const columns = computed(() => {
   switch (name.value) {
     case "xs":
-      return { columns: 1, imgHeight: 400 };
+      return { columns: 1, imgHeight: 450 };
     case "sm":
       return { columns: 4, imgHeight: 250 };
     case "md":
@@ -70,10 +75,8 @@ const columns = computed(() => {
       return { columns: 6, imgHeight: 250 };
     case "xl":
       return { columns: 9, imgHeight: 250 };
-    case "xxl":
-      return { columns: 11, imgHeight: 250 };
     default:
-      return { columns: 1, imgHeight: 250 };
+      return { columns: 12, imgHeight: 250 };
   }
 });
 </script>

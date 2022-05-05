@@ -3,8 +3,8 @@
     >Ошибка API. {{ store.state.error }}</v-alert
   >
   <TheSlider />
-  <v-card class="mt-4 pa-3" color="primary">
-    <span class="text-h5">Уже на экранах</span>
+  <v-card class="mt-4 pa-3" color="grey">
+    <span class="text-h5 text-white">Уже на экранах</span>
     <LoadingMovieCard v-if="store.state.error" />
     <Suspense v-for="movie of movieList" :key="movie.kinopoiskId">
       <template #default>

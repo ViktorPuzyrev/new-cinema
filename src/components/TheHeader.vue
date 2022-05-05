@@ -1,13 +1,13 @@
 <template>
-  <v-app-bar color="primary" absolute>
+  <v-app-bar color="black" absolute>
     <v-container class="d-flex">
       <v-app-bar-title class="my-auto" @click="$router.push('/')"
         >New Cinema
       </v-app-bar-title>
       <v-badge
-        :content="messages"
-        :value="messages"
-        color="blue"
+        :content="cartItems"
+        :model-value="!!cartItems"
+        color="white"
         offset-x="5"
         offset-y="5"
       >
@@ -23,7 +23,10 @@
 </template>
 
 <script setup lang="ts">
-const messages = 2;
+import { computed } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+const cartItems = computed(() => store.getters.cartItems);
 </script>
 
 <style scoped></style>
