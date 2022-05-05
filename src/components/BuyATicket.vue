@@ -1,23 +1,26 @@
 <template>
-  <v-card class="" width="300">
+  <v-card class="d-flex flex-column" width="300">
     <v-combobox
       v-model="tickets.session"
       :items="session"
       label="Сеанс"
+      hide-details
     ></v-combobox>
     <v-combobox
       v-model="tickets.seats"
       :items="seats"
       label="Места"
+      hide-details
       multiple
       chips
     ></v-combobox>
-    <v-btn block color="success" @click="addToCart">Buy a ticket</v-btn>
+    <span class="mx-auto my-2">Стоимость: {{ totalCoast }}</span>
+    <v-btn color="success" @click="addToCart">Добавить в корзину</v-btn>
   </v-card>
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 
 const props = defineProps({
@@ -61,11 +64,29 @@ const seats = [
 ];
 const tickets = reactive({
   movieId: props.kinopoiskId,
-  session: [],
+  session: "",
   seats: [],
+  total: 0,
 });
+
+const totalCoast = computed(() => {
+  switch (tickets.session) {
+    case "8:00":
+    case "10:00":
+    case "12:00":
+    case "14:00":
+      return tickets.seats.length * 200;
+    case "16:00":
+    case "18:00":
+      return tickets.seats.length * 300;
+    default:
+      return tickets.seats.length * 250;
+  }
+});
+
 function addToCart() {
   if (tickets.session.length && tickets.seats.length) {
+    tickets.total = totalCoast.value;
     store.commit("addToCart", tickets);
   }
   emit("closeModal");
