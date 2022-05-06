@@ -26,7 +26,7 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
-const cartItems = computed(() => store.getters.cartItems);
+const cartItems = computed(() => store.getters.cartItemsCount);
 </script>
 
 <style scoped></style>
