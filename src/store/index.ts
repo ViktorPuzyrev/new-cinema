@@ -1,24 +1,32 @@
 import { createStore } from "vuex";
-import * as API from "@/services/API";
+import useAPI from "@/services/API";
 import * as TYPE from "@/store/types";
 
 export default createStore({
   state: {
     error: "",
     loading: true,
-    NowPlayingMovies: {} as TYPE.MoviesList,
-    UpcomingMovies: {} as TYPE.MoviesList,
-    MovieDetals: {} as TYPE.MovieDetails,
-    MovieCredits: {} as TYPE.MovieCredits,
-    MovieImages: {} as TYPE.MovieImages,
-    MovieVideos: {} as TYPE.MovieVideos,
+    cart: [] as TYPE.CartItem[],
+    nowPlayingMovies: {} as TYPE.MoviesList,
+    upcomingMovies: {} as TYPE.MoviesList,
   },
   getters: {
     upcomingMoviesList(state) {
-      return state.UpcomingMovies.items;
+      return state.upcomingMovies.items;
     },
     NowPlayingMoviesList(state) {
-      return state.NowPlayingMovies.items;
+      return state.nowPlayingMovies.items;
+    },
+    cartItemsCount(state) {
+      return state.cart.length;
+    },
+    cartTotalCoast(state) {
+      return state.cart.reduce((sum, ticket) => sum + ticket.total, 0);
+    },
+    movieById: (state) => (id: number) => {
+      return state.nowPlayingMovies.items.find(
+        (item) => item.kinopoiskId === id
+      );
     },
   },
   mutations: {
@@ -28,50 +36,28 @@ export default createStore({
     updateLoading(state) {
       state.loading = false;
     },
+    addToCart(state, data) {
+      state.cart.push(data);
+    },
+    removeFromCart(state, id) {
+      state.cart.splice(id, 1);
+    },
     updateUpcomingMovies(state, data: TYPE.MoviesList) {
-      state.UpcomingMovies = data;
+      state.upcomingMovies = data;
     },
     updateNowPlayingMovies(state, data: TYPE.MoviesList) {
-      state.NowPlayingMovies = data;
-    },
-    updateMovieDetals(state, data: TYPE.MovieDetails) {
-      state.MovieDetals = data;
-    },
-    updateMovieCredits(state, data: TYPE.MovieCredits) {
-      state.MovieCredits = data;
-    },
-    updateMovieImages(state, data: TYPE.MovieImages) {
-      state.MovieImages = data;
-    },
-    updateMovieVideos(state, data: TYPE.MovieVideos) {
-      state.MovieVideos = data;
+      state.nowPlayingMovies = data;
     },
   },
   actions: {
     async initUpcomingMovies({ commit }) {
-      const data = await API.getUpcomingMovies();
+      const data = await useAPI("upcoming");
       commit("updateUpcomingMovies", data);
       commit("updateLoading");
     },
     async initNowPlayingMovies({ commit }) {
-      const data = await API.getNowPlayingMovies();
+      const data = await useAPI("now-playing");
       commit("updateNowPlayingMovies", data);
-    },
-    async initMovieDetals({ commit }, id: number) {
-      const data = await API.getMovieDetals(id);
-      commit("updateMovieDetals", data);
-    },
-    async initMovieCredits({ commit }, id: number) {
-      const data = await API.getMovieCredits(id);
-      commit("updateMovieCredits", data);
-    },
-    async initMovieImages({ commit }, id: number) {
-      const data = await API.getMovieImages(id);
-      commit("updateMovieImages", data);
-    },
-    async initMovieVideos({ commit }, id: number) {
-      const data = await API.getMovieVideos(id);
-      commit("updateMovieVideos", data);
     },
   },
   modules: {},

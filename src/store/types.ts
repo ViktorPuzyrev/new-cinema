@@ -99,4 +99,5 @@ export interface CartItem {
   movieId: number;
   session: string[];
   seats: string[];
+  total: number;
 }
