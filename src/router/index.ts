@@ -22,6 +22,13 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "cart" */ "@/views/CartView.vue"),
     meta: { title: "Мои билеты - New Cinema" },
   },
+  {
+    path: "/movie/:id",
+    name: "movie",
+    component: () =>
+      import(/* webpackChunkName: "movie" */ "@/views/MovieView.vue"),
+    meta: { title: "Фильм - New Cinema" },
+  },
 ];
 
 const router = createRouter({
