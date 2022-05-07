@@ -10,20 +10,30 @@
         :item="item"
         :index="index"
         :key="item.movieId"
+        @showSnackbar="snackbar = true"
       />
     </div>
     <div class="d-flex justify-end">
       <v-btn v-if="!emptyCart">Оплатить {{ cartItemsCost }}</v-btn>
     </div>
   </v-card>
+  <v-snackbar v-model="snackbar">
+    Удалено из корзины
+    <template v-slot:actions>
+      <v-btn color="red" variant="text" @click="snackbar = false">
+        <v-icon>mdi-close-circle</v-icon>
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import CartItem from "@/components/CartItem.vue";
 import * as TYPE from "@/store/types";
 
+let snackbar = ref(false);
 const store = useStore();
 const emptyCart = computed(() => !store.getters.cartItemsCount);
 const cartItems = computed<TYPE.CartItem[]>(() => store.state.cart);

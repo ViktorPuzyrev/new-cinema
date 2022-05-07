@@ -27,7 +27,7 @@ const props = defineProps({
   kinopoiskId: { type: Number, required: true },
 });
 
-const emit = defineEmits(["closeModal"]);
+const emit = defineEmits(["closeModal", "showSnackbar"]);
 
 const store = useStore();
 const session = [
@@ -90,6 +90,7 @@ function addToCart() {
     store.commit("addToCart", tickets);
   }
   emit("closeModal");
+  emit("showSnackbar");
 }
 </script>
 

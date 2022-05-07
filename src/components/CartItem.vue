@@ -16,10 +16,10 @@
       </v-col>
       <v-col cols="12" xs="12" sm="3" md="2" lg="2" align-self="center">
         <div class="d-none d-sm-flex justify-end">
-          <v-btn color="red" @click="removeFromCart">Удалить</v-btn>
+          <v-btn color="error" @click="removeFromCart">Удалить</v-btn>
         </div>
         <div class="d-sm-none d-block">
-          <v-btn block color="red" @click="removeFromCart">Удалить</v-btn>
+          <v-btn block color="error" @click="removeFromCart">Удалить</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -36,12 +36,15 @@ const props = defineProps({
   index: { type: Number, required: true },
 });
 
+const emit = defineEmits(["showSnackbar"]);
+
 const store = useStore();
 const movie = computed<TYPE.Movie>(() =>
   store.getters.movieById(props.item.movieId)
 );
 function removeFromCart() {
   store.commit("removeFromCart", props.index);
+  emit("showSnackbar");
 }
 </script>
 
