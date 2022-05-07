@@ -69,8 +69,8 @@ import { MovieDetails } from "@/store/types";
 const props = defineProps({
   kinopoiskId: { type: Number, required: true },
 });
-let overlay = ref(false);
-let snackbar = ref(false);
+const overlay = ref(false);
+const snackbar = ref(false);
 
 const movie: MovieDetails = await useAPI(`movie/${props.kinopoiskId}`);
 const genres = computed((): string => {

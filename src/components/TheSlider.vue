@@ -70,7 +70,7 @@ const columns = computed(() => {
     case "sm":
       return { columns: 4, imgHeight: 250 };
     case "md":
-      return { columns: 4, imgHeight: 250 };
+      return { columns: 4, imgHeight: 280 };
     case "lg":
       return { columns: 6, imgHeight: 250 };
     case "xl":

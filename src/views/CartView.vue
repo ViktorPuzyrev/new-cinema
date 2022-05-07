@@ -33,7 +33,7 @@ import { useStore } from "vuex";
 import CartItem from "@/components/CartItem.vue";
 import * as TYPE from "@/store/types";
 
-let snackbar = ref(false);
+const snackbar = ref(false);
 const store = useStore();
 const emptyCart = computed(() => !store.getters.cartItemsCount);
 const cartItems = computed<TYPE.CartItem[]>(() => store.state.cart);
