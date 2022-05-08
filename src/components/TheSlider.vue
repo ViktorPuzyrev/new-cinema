@@ -28,7 +28,12 @@
               <template v-for="(n, i) in columns.columns">
                 <template v-if="+index + i < UpcomingMovies.length">
                   <v-col :key="i">
-                    <router-link to="">
+                    <router-link
+                      :to="{
+                        name: 'movie',
+                        params: { id: UpcomingMovies[+index + i].kinopoiskId },
+                      }"
+                    >
                       <v-img
                         :height="columns.imgHeight"
                         :src="UpcomingMovies[+index + i].posterUrl"
