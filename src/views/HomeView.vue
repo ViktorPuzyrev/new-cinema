@@ -5,7 +5,9 @@
   <TheSlider />
   <v-card class="mt-4 pa-3" color="grey">
     <span class="text-h5 text-white">Уже на экранах</span>
-    <LoadingMovieCard v-if="store.state.error" />
+    <div v-if="store.state.error || store.state.loading">
+      <LoadingMovieCard v-for="n of 5" :key="n" />
+    </div>
     <Suspense v-for="movie of movieList" :key="movie.kinopoiskId">
       <template #default>
         <MovieCard :kinopoiskId="movie.kinopoiskId" />
@@ -15,9 +17,7 @@
       </template>
     </Suspense>
     <div class="d-flex">
-      <v-btn class="text-black ma-auto" @click="addToMovieList"
-        >Показать еще</v-btn
-      >
+      <v-btn class="text-black ma-auto" @click="loadMore">Показать еще</v-btn>
     </div>
   </v-card>
 </template>
@@ -40,7 +40,7 @@ watch(
   () => NowPlayingMovies.value,
   () => movieList.push(...NowPlayingMovies.value.slice(0, 5))
 );
-function addToMovieList() {
+function loadMore() {
   movieList.push(
     ...NowPlayingMovies.value.slice(movieList.length, movieList.length + 5)
   );
