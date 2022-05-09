@@ -2,10 +2,10 @@
   <div class="d-flex mx-2 my-1">
     <v-img :src="props.person.posterUrl" max-width="40"></v-img>
     <div class="my-auto ml-2">
-      <span>{{ props.person.nameRu }}</span
+      <span>{{ props.person.nameRu.slice(0, 18) }}</span
       ><br />
       <div v-if="props.person.description">
-        <span>...{{ props.person.description }}</span
+        <span>...{{ props.person.description.slice(0, 18) }}</span
         ><br />
       </div>
       <div v-else>
