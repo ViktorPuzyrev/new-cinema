@@ -6,14 +6,14 @@
   <v-card class="mt-4 pa-3" color="grey">
     <span class="text-h5 text-white">Уже на экранах</span>
     <div v-if="store.state.error || store.state.loading">
-      <LoadingMovieCard v-for="n of 5" :key="n" />
+      <HomeMovieCardLoading v-for="n of 5" :key="n" />
     </div>
     <Suspense v-for="movie of movieList" :key="movie.kinopoiskId">
       <template #default>
-        <MovieCard :kinopoiskId="movie.kinopoiskId" />
+        <HomeMovieCard :kinopoiskId="movie.kinopoiskId" />
       </template>
       <template #fallback>
-        <LoadingMovieCard />
+        <HomeMovieCardLoading />
       </template>
     </Suspense>
     <div class="d-flex">
@@ -26,8 +26,8 @@
 import { computed, reactive, watch } from "vue";
 import { useStore } from "vuex";
 import TheSlider from "@/components/TheSlider.vue";
-import MovieCard from "@/components/MovieCard.vue";
-import LoadingMovieCard from "@/components/LoadingMovieCard.vue";
+import HomeMovieCard from "@/components/HomeMovieCard.vue";
+import HomeMovieCardLoading from "@/components/HomeMovieCardLoading.vue";
 import { Movie } from "@/store/types";
 
 const movieList: Movie[] = reactive([]);
