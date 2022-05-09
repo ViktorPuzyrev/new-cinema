@@ -80,20 +80,22 @@ export interface MovieCredits {
 export interface MovieImages {
   total: number;
   totalPages: number;
-  items: {
-    imageUrl: string;
-    previewUrl: string;
-  }[];
+  items: Image[];
 }
+type Image = {
+  imageUrl: string;
+  previewUrl: string;
+};
 
 export interface MovieVideos {
   total: number;
-  items: {
-    url: string;
-    name: string;
-    site: "KINOPOISK_WIDGET" | "UNKNOWN" | "YOUTUBE";
-  }[];
+  items: Video[];
 }
+type Video = {
+  url: string;
+  name: string;
+  site: "KINOPOISK_WIDGET" | "UNKNOWN" | "YOUTUBE";
+};
 
 export interface CartItem {
   movieId: number;
