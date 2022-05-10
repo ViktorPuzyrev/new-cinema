@@ -1,19 +1,23 @@
 <template>
-  <v-alert v-if="store.state.error" type="error" class="mb-4"
-    >Ошибка API. {{ store.state.error }}</v-alert
-  >
+  <ApiAlert />
   <TheSlider />
-  <v-card class="mt-4 pa-3" color="grey">
+  <v-card class="mt-4 pa-3" color="blue-grey">
     <span class="text-h5 text-white">Уже на экранах</span>
     <div v-if="store.state.error || store.state.loading">
-      <HomeMovieCardLoading v-for="n of 5" :key="n" />
+      <MovieLoading
+        v-for="n of 5"
+        :key="n"
+        class="pa-3 mb-3 d-flex"
+        color=""
+        height="260"
+      />
     </div>
     <Suspense v-for="movie of movieList" :key="movie.kinopoiskId">
       <template #default>
         <HomeMovieCard :kinopoiskId="movie.kinopoiskId" />
       </template>
       <template #fallback>
-        <HomeMovieCardLoading />
+        <MovieLoading class="pa-3 mb-3 d-flex" color="" height="260" />
       </template>
     </Suspense>
     <div class="d-flex">
@@ -25,9 +29,10 @@
 <script setup lang="ts">
 import { computed, reactive, watch } from "vue";
 import { useStore } from "vuex";
+import ApiAlert from "@/components/ApiAlert.vue";
 import TheSlider from "@/components/TheSlider.vue";
 import HomeMovieCard from "@/components/HomeMovieCard.vue";
-import HomeMovieCardLoading from "@/components/HomeMovieCardLoading.vue";
+import MovieLoading from "@/components/MovieLoading.vue";
 import { Movie } from "@/store/types";
 
 const movieList: Movie[] = reactive([]);

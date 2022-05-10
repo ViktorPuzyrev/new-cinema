@@ -1,4 +1,5 @@
 <template>
+  <ApiAlert />
   <v-card class="pa-3" color="blue-grey">
     <span class="text-h5 text-white">Мои билеты</span>
     <div v-if="emptyCart">
@@ -30,6 +31,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import ApiAlert from "@/components/ApiAlert.vue";
 import CartItem from "@/components/CartItem.vue";
 import * as TYPE from "@/store/types";
 

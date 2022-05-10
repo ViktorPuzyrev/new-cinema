@@ -23,17 +23,12 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-
 import useAPI from "@/services/API";
-import * as TYPE from "@/store/types";
+import { MovieDetails } from "@/store/types";
 
 const route = useRoute();
-const movieDetails: TYPE.MovieDetails = await useAPI(
-  `movie/${route.params.id}`
-);
-const movieImages: TYPE.MovieImages = await useAPI(
-  `movie/${route.params.id}/images`
-);
+const movieDetails: MovieDetails = await useAPI(`movie/${route.params.id}`);
+
 (() => (document.title = `${movieDetails.nameRu} - New Cinema`))();
 </script>
 

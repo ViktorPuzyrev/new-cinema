@@ -1,33 +1,52 @@
 <template>
-  <v-card class="d-flex flex-column" width="300">
-    <v-combobox
-      v-model="tickets.session"
-      :items="session"
-      label="Сеанс"
-      hide-details
-    ></v-combobox>
-    <v-combobox
-      v-model="tickets.seats"
-      :items="seats"
-      label="Места"
-      hide-details
-      multiple
-      chips
-    ></v-combobox>
-    <span class="mx-auto my-2">Стоимость: {{ totalCoast }}</span>
-    <v-btn color="success" @click="addToCart">Добавить в корзину</v-btn>
-  </v-card>
+  <div class="d-none d-sm-flex">
+    <v-btn color="amber" @click="overlay = true">Купить билет</v-btn>
+  </div>
+  <div class="d-sm-none d-block">
+    <v-btn block color="amber" class="" @click="overlay = true"
+      >Купить билет</v-btn
+    >
+  </div>
+  <v-overlay v-model="overlay" class="align-center justify-center">
+    <v-card class="d-flex flex-column" width="300">
+      <v-combobox
+        v-model="tickets.session"
+        :items="session"
+        label="Сеанс"
+        hide-details
+      ></v-combobox>
+      <v-combobox
+        v-model="tickets.seats"
+        :items="seats"
+        label="Места"
+        hide-details
+        multiple
+        chips
+      ></v-combobox>
+      <span class="mx-auto my-2">Стоимость: {{ totalCoast }}</span>
+      <v-btn color="success" @click="addToCart">Добавить в корзину</v-btn>
+    </v-card>
+  </v-overlay>
+  <v-snackbar v-model="snackbar">
+    Добавлено в корзину
+    <template v-slot:actions>
+      <v-btn color="red" variant="text" @click="snackbar = false">
+        <v-icon>mdi-close-circle</v-icon>
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from "vue";
+import { reactive, computed, ref } from "vue";
 import { useStore } from "vuex";
 
 const props = defineProps({
   kinopoiskId: { type: Number, required: true },
 });
 
-const emit = defineEmits(["closeModal", "showSnackbar"]);
+const overlay = ref(false);
+const snackbar = ref(false);
 
 const store = useStore();
 const session = [
@@ -88,9 +107,11 @@ function addToCart() {
   if (tickets.session.length && tickets.seats.length) {
     tickets.total = totalCoast.value;
     store.commit("addToCart", tickets);
+    overlay.value = false;
+    snackbar.value = true;
+    tickets.session = "";
+    tickets.seats = [];
   }
-  emit("closeModal");
-  emit("showSnackbar");
 }
 </script>
 
