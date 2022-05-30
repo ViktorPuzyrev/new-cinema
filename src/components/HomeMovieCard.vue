@@ -33,7 +33,7 @@
           <v-btn
             block
             color="cyan"
-            class="mt-4"
+            class="mt-4 mb-4"
             :to="{
               name: 'movie',
               params: { id: movie.kinopoiskId },
