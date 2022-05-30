@@ -39,7 +39,7 @@ const movieList: Movie[] = reactive([]);
 
 const store = useStore();
 const NowPlayingMovies = computed(
-  (): Movie[] => store.getters.NowPlayingMoviesList
+  (): Movie[] => store.getters.nowPlayingMoviesList
 );
 watch(
   () => NowPlayingMovies.value,

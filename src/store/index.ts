@@ -14,7 +14,7 @@ export default createStore({
     upcomingMoviesList(state) {
       return state.upcomingMovies.items;
     },
-    NowPlayingMoviesList(state) {
+    nowPlayingMoviesList(state) {
       return state.nowPlayingMovies.items;
     },
     cartItemsCount(state) {
