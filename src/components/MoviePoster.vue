@@ -1,7 +1,7 @@
 <template>
   <v-card
     ><v-img :src="posterUrl" :lazy-src="posterUrlPreview" cover></v-img>
-    <div class="d-flex pa-2 justify-center">
+    <div class="d-flex justify-center">
       <BuyATicket :kinopoiskId="kinopoiskId" />
     </div>
   </v-card>

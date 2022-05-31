@@ -21,7 +21,7 @@
         <div class="d-none d-sm-flex">
           <v-btn
             color="cyan"
-            class="mr-2"
+            class="mr-2 mt-2"
             :to="{
               name: 'movie',
               params: { id: movie.kinopoiskId },

@@ -1,11 +1,13 @@
 <template>
-  <div class="d-none d-sm-flex">
-    <v-btn color="amber" @click="overlay = true">Купить билет</v-btn>
-  </div>
-  <div class="d-sm-none d-block">
-    <v-btn block color="amber" class="" @click="overlay = true"
-      >Купить билет</v-btn
-    >
+  <div v-if="isActive">
+    <div class="d-none d-sm-flex ma-2">
+      <v-btn color="amber" @click="overlay = true">Купить билет</v-btn>
+    </div>
+    <div class="d-sm-none d-block ma-2">
+      <v-btn block color="amber" class="" @click="overlay = true"
+        >Купить билет</v-btn
+      >
+    </div>
   </div>
   <v-overlay v-model="overlay" class="align-center justify-center">
     <v-card class="d-flex flex-column" width="300">
@@ -40,6 +42,7 @@
 <script setup lang="ts">
 import { reactive, computed, ref } from "vue";
 import { useStore } from "vuex";
+import { Movie } from "@/store/types";
 
 const props = defineProps({
   kinopoiskId: { type: Number, required: true },
@@ -49,6 +52,17 @@ const overlay = ref(false);
 const snackbar = ref(false);
 
 const store = useStore();
+const isActive = computed(() => {
+  const activeMovies = computed(
+    (): Movie[] => store.getters.nowPlayingMoviesList
+  );
+  return activeMovies.value.find(
+    (movie) => movie.kinopoiskId === props.kinopoiskId
+  )
+    ? true
+    : false;
+});
+
 const session = [
   "8:00",
   "10:00",
@@ -106,7 +120,8 @@ const totalCoast = computed(() => {
 function addToCart() {
   if (tickets.session.length && tickets.seats.length) {
     tickets.total = totalCoast.value;
-    store.commit("addToCart", tickets);
+    const ticketsToCart = JSON.parse(JSON.stringify(tickets));
+    store.commit("addToCart", ticketsToCart);
     overlay.value = false;
     snackbar.value = true;
     tickets.session = "";
