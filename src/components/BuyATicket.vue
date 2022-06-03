@@ -3,7 +3,7 @@
     <div class="d-none d-sm-flex ma-2">
       <v-btn color="amber" @click="overlay = true">Купить билет</v-btn>
     </div>
-    <div class="d-sm-none d-block ma-2">
+    <div class="d-sm-none d-block">
       <v-btn block color="amber" class="" @click="overlay = true"
         >Купить билет</v-btn
       >
