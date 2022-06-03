@@ -42,6 +42,9 @@ export default createStore({
     removeFromCart(state, id) {
       state.cart.splice(id, 1);
     },
+    removeAllFromCart(state) {
+      state.cart.length = 0;
+    },
     updateUpcomingMovies(state, data: TYPE.MoviesList) {
       state.upcomingMovies = data;
     },
