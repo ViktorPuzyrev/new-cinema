@@ -1,34 +1,11 @@
-# new-cinema
+# New Cinema
+Приложение для покупки билетов в кинотеатр.<br>
+Vuetify в бете так, что интерфейс может баговать.<br>
+[Приложение размещено на Heroku (может долго стартовать).](https://new-cinema.herokuapp.com/)
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Технологии
+- Vue 3
+- TypeScript
+- Vuex
+- Vuetify 3 beta
+- Адаптивная верстка
